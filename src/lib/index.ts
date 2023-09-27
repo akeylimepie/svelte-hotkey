@@ -1,6 +1,6 @@
 type Keys = Pick<KeyboardEvent, 'metaKey' | 'shiftKey' | 'ctrlKey' | 'altKey' | 'code'>
 
-type Params = Keys & { handle?: () => void };
+type Params = Partial<Keys> & { handle?: () => void };
 
 const keys: Array<keyof Keys> = ['metaKey', 'shiftKey', 'ctrlKey', 'altKey', 'code']
 
