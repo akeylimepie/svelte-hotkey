@@ -1,36 +1,45 @@
 <script>
     import { hotkey } from '$lib'
 
-    let times = 0
+    let times = $state(0)
 
-    const action = () => {
-        times++
-    }
+    let active = $state(false)
 
-    let active = false
+    let digit = $state(1)
 
-    let digit = 1
+    const toggle = () => active = !active
 </script>
 
-<svelte:window use:hotkey={{metaKey: true, code: 'KeyK', handle:()=>alert('Pressed Cmd+K')}}/>
+<svelte:window use:hotkey={{metaKey: true, code: 'KeyK', handle: ()=>alert('Pressed Cmd+K')}}/>
 
 <p>
-    Press <kbd>[Cmd+K]</kbd> for alert
+    Press <kbd>Cmd+K</kbd> for alert
 </p>
 
-<button on:click={()=>active=!active}>Toggle</button>
+<button
+        onclick={toggle}
+        use:hotkey={{metaKey: true, shiftKey: true, code: 'KeyK', handle: toggle}}
+>
+    Toggle <kbd>Cmd+Shift+K</kbd>
+</button>
 
 {#if active}
     <div>
         <button
-                on:click={action}
-                use:hotkey={{metaKey: true, shiftKey: true, code: `Digit${digit}`}}
-        >Press <kbd>[Cmd+Shift+{digit}]</kbd></button>
+                onclick={()=>times++}
+                use:hotkey={{metaKey: true, shiftKey: true, allowRepeat:true, code: `Digit${digit}`}}
+        >Press <kbd>Cmd+Shift+{digit}</kbd></button>
 
-        <button on:click={()=>digit++}>Change hotkey</button>
-
-        {#if times}
-            <p>Times: {times}</p>
-        {/if}
+        <button onclick={()=>digit++}>Change hotkey</button>
     </div>
 {/if}
+
+{#if times}
+    <p>Times: {times}</p>
+{/if}
+
+<style>
+    kbd {
+        background: antiquewhite;
+    }
+</style>
