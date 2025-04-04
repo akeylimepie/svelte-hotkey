@@ -1,33 +1,60 @@
 # svelte-hotkey
 
-A Svelte action to add keyboard shortcuts.
+A simple keyboard shortcut action for Svelte 5.
+
+---
+
+## Install
+
+```bash
+npm install svelte-hotkey
+```
+
+---
 
 ## Usage
 
 ```svelte
-<script>
-    import { hotkey } from 'svelte-hotkey'
+<script lang="ts">
+	import { hotkey } from 'svelte-hotkey';
 
-    let times = 0
-
-    const action = () => {
-        times++
-    }
+	function showCommandPalette() {
+		console.log('Open command palette');
+	}
 </script>
 
-<svelte:window use:hotkey={{ metaKey: true, code: 'KeyK', handle: () => alert('Pressed Cmd+K') }} />
-
-<p>
-    Press <kbd>Cmd+K</kbd> for alert
-</p>
-
-<button
-    on:click={action}
-    use:hotkey={{ metaKey: true, shiftKey: true, code: 'Digit1' }}
->
-    Press <kbd>Cmd+Shift+1</kbd>
+<button use:hotkey={{ ctrlKey: true, code: 'KeyK', handle: showCommandPalette }}>
+	Ctrl + K
 </button>
+```
 
-{#if times}
-    <p>Times: {times}</p>
-{/if}
+Pressing `Ctrl + K` triggers the `showCommandPalette` function.
+
+When `handle` is omitted, clicking the element is used as the default behavior.
+
+```svelte
+<button
+	use:hotkey={{ shiftKey: true, code: 'Enter'  }}>
+	Send
+</button>
+```
+
+---
+
+## Parameters
+
+| Name          | Type                      | Description                                                                                                                         |
+|---------------|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| `code`        | `string`                  | The [`KeyboardEvent.code`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code) to match (e.g. `'KeyS'`, `'Enter'`) |
+| `ctrlKey`     | `boolean` _(optional)_    | Require the Ctrl key                                                                                                                |
+| `metaKey`     | `boolean` _(optional)_    | Require the Meta key                                                                                                                |
+| `shiftKey`    | `boolean` _(optional)_    | Require the Shift key                                                                                                               |
+| `altKey`      | `boolean` _(optional)_    | Require the Alt key                                                                                                                 |
+| `handle`      | `() => void` _(optional)_ | Custom handler function                                                                                                             |
+| `allowRepeat` | `boolean` _(optional)_    | Allow repeated key events (default: `false`)                                                                                        |
+
+---
+
+## License
+
+MIT

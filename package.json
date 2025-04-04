@@ -1,19 +1,23 @@
 {
     "name": "svelte-hotkey",
-    "version": "0.0.4",
+    "description": "A simple keyboard shortcut action for Svelte 5",
+    "version": "0.0.0-dev",
+    "license": "MIT",
+    "author": {
+        "name": "Oleg Sedinkin"
+    },
+    "keywords": [
+        "svelte",
+        "hotkey"
+    ],
+    "repository": "akeylimepie/svelte-hotkey",
     "scripts": {
         "dev": "vite dev",
-        "build": "vite build && npm run package",
-        "preview": "vite preview",
         "package": "svelte-kit sync && svelte-package && publint",
         "prepublishOnly": "npm run package",
         "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
         "test": "vitest"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/akeylimepie/svelte-hotkey.git"
     },
     "exports": {
         ".": {
@@ -34,13 +38,16 @@
         "@sveltejs/kit": "^2.20.2",
         "@sveltejs/package": "^2.3.10",
         "@sveltejs/vite-plugin-svelte": "^5.0.3",
+        "@testing-library/svelte": "^5.2.7",
+        "@types/node": "^22.14.0",
+        "jsdom": "^26.0.0",
         "publint": "^0.2.7",
         "svelte": "^5.25.3",
         "svelte-check": "^4.1.5",
         "tslib": "^2.8.1",
         "typescript": "^5.8.2",
         "vite": "^6.2.3",
-        "vitest": "^1.3.1"
+        "vitest": "^3.1.1"
     },
     "svelte": "./dist/index.js",
     "types": "./dist/index.d.ts",
